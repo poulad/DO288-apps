@@ -1,6 +1,6 @@
 source .env.tmp
 
-oc delete project --all
+oc delete project --all --wait
 
 oc new-project ${RHT_OCP4_DEV_USER}-source-build
 
