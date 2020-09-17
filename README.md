@@ -17,4 +17,15 @@ oc logs bc/elvis -f
 sleep 3
 oc get pods -l deploymentconfig=elvis
 oc logs -f -l deploymentconfig=elvis
+
+# Fix "hello-java/Dockerfile" and commit
+
+oc start-build bc/elvis
+oc logs bc/elvis -f
+
+sleep 3
+oc get pods -l deploymentconfig=elvis
+sleep 5
+oc logs -f -l deploymentconfig=elvis
+
 ```
