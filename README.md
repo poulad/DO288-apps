@@ -28,4 +28,17 @@ oc get pods -l deploymentconfig=elvis
 sleep 5
 oc logs -f -l deploymentconfig=elvis
 
+oc expose svc/elvis
+oc get route/elvis -o jsonpath="{.spec.host}"
+
+curl "elvis-${RHT_OCP4_DEV_USER}-design-container.${RHT_OCP4_WILDCARD_DOMAIN}/api/hello"
+
+# using a configmap
+oc create cm appconfig --from-literal APP_MSG="Elvis lives"
+oc set env dc/elvis --from cm/appconfig
+
+sleep 7
+oc logs -l deploymentconfig=elvis
+curl "elvis-${RHT_OCP4_DEV_USER}-design-container.${RHT_OCP4_WILDCARD_DOMAIN}/api/hello"
+
 ```
